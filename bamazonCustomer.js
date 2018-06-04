@@ -16,18 +16,17 @@ connection.connect(function (err) {
 });
 
 function displayAll() {
-    connection.query('SELECT * FROM products', function (error, response) {
-        if (error) throw error;
-        for (var i = 0; i < response.length; i++) {
-            console.log('Product ID: ' + response[i].item_id + '\n' +
-                'Product : ' + response[i].product_name + '\n' +
-                'Department: ' + response[i].department_name + '\n' +
-                'Price: ' + response[i].price + '\n' +
-                'Stock: ' + response[i].stock_quantity + '\n' +
+    connection.query('SELECT * FROM products', function (err, res) {
+        if (err) throw err;
+        for (var i = 0; i < res.length; i++) {
+            console.log('Product ID: ' + res[i].item_id + '\n' +
+                'Product : ' + res[i].product_name + '\n' +
+                'Department: ' + res[i].department_name + '\n' +
+                'Price: ' + res[i].price + '\n' +
+                'Stock: ' + res[i].stock_quantity + '\n' +
                 '===================================================');
         }
         promptCustomer();
-        connection.end();
     })
 }
 
@@ -58,6 +57,38 @@ function promptCustomer() {
             // }
         }
     ]).then(function (answer) {
-
-    })
+        connection.query('SELECT * FROM products WHERE ?',
+            {
+                item_id: answer.product
+            }, function (err, res) {
+                if (err) throw err;
+                // console.log(res[0]);
+                var selectedProduct = res[0];
+                if (answer.quantity <= selectedProduct.stock_quantity) {
+                    connection.query(
+                        'UPDATE products SET ? WHERE ?',
+                        [{
+                            stock_quantity: selectedProduct.stock_quantity - answer.quantity
+                        },
+                        {
+                            item_id: answer.product
+                        }],
+                        function (err, res) {
+                            if (err) throw err;
+                            console.log('===================================================\n' +
+                            'You are purchasing ' + answer.quantity + ' of ' + selectedProduct.product_name + '.\n' +
+                            'Your order has been placed! Your total is $' + selectedProduct.price * answer.quantity + '\n' +
+                            '===================================================');
+                            connection.end();
+                        });
+                } else {
+                    console.log('===================================================\n' +
+                    'Sorry, there is insufficient stock.\n' +
+                    'Only ' + selectedProduct.stock_quantity + ' units remain for ' + selectedProduct.product_name + '.\n' +
+                    'Please try again.\n' +
+                    '===================================================');
+                    promptCustomer();
+                }
+            });
+    });
 }

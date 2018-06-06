@@ -27,7 +27,7 @@ function displayAll() {
                 '===================================================');
         }
         promptCustomer();
-    })
+    });
 }
 
 function promptCustomer() {
@@ -48,13 +48,6 @@ function promptCustomer() {
             type: 'input',
             message: 'Enter the quantity you wish to purchase.',
             name: 'quantity',
-            // validate: function (input) {
-            //     if (input != isNan) {
-            //         return true;
-            //     } else {
-            //         return false;
-            //     }
-            // }
         }
     ]).then(function (answer) {
         connection.query('SELECT * FROM products WHERE ?',
@@ -79,6 +72,7 @@ function promptCustomer() {
                             'You are purchasing ' + answer.quantity + ' of ' + selectedProduct.product_name + '.\n' +
                             'Your order has been placed! Your total is $' + selectedProduct.price * answer.quantity + '\n' +
                             '===================================================');
+                            promptCustomer();
                             connection.end();
                         });
                 } else {

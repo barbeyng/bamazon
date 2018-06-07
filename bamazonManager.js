@@ -79,7 +79,7 @@ function lowInventory() {
     connection.query('SELECT * FROM products WHERE stock_quantity < 5', function (err, res) {
         if (err) throw err;
         for (var i = 0; i < res.length; i++) {
-            console.log('The following items have less than 5 units in stock.')
+            console.log('The following items have less than 5 units in stock.');
             console.log('Product ID: ' + res[i].item_id + '\n' +
                 'Product : ' + res[i].product_name + '\n' +
                 'Department: ' + res[i].department_name + '\n' +

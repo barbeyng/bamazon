@@ -8,3 +8,17 @@ You can choose to run the app as a customer. Just navigate through the prompts t
 
 
 ![Customer Menu](images/customer.gif)
+
+You can also opt to run the program as a manager. As a manager you have options.
+
+You can view all products or items with low inventory.
+
+![Manager View](images/manager1.gif)
+
+Add inventory.
+
+![Manager View](images/manager2.gif)
+
+Or add a new product.
+
+![Manager View](images/manager3.gif)

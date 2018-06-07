@@ -73,7 +73,6 @@ function promptCustomer() {
                             'Your order has been placed! Your total is $' + selectedProduct.price * answer.quantity + '\n' +
                             '===================================================');
                             promptCustomer();
-                            connection.end();
                         });
                 } else {
                     console.log('===================================================\n' +

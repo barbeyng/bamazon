@@ -6,4 +6,6 @@ The purpose of this application is to utilize both node.js and MySQL as well as 
 ## How to use this app
 You can choose to run the app as a customer. Just navigate through the prompts to complete your purchase.
 
+
+![Alt text](relative/path/to/customer/png?raw=true "Customer")
 (/customer.png)

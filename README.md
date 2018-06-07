@@ -7,4 +7,4 @@ The purpose of this application is to utilize both node.js and MySQL as well as 
 You can choose to run the app as a customer. Just navigate through the prompts to complete your purchase.
 
 
-![Customer Menu](images/customer.png)
+![Customer Menu](images/customer.gif)
